@@ -2,6 +2,6 @@ parameters:
 
 
 database:
-	dsn: 'mysql:host=localhost;dbname=techband'
+	dsn: 'mysql:host=db;dbname=techband'
 	user: root
 	password: root

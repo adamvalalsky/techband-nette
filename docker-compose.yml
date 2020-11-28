@@ -34,3 +34,9 @@ services:
         command: mysqld --sql_mode="" --default-authentication-plugin=mysql_native_password
         volumes:
             - "./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql"
+    composer:
+        image: composer:1.9
+        command: ["composer", "install"]
+        working_dir: /code
+        volumes:
+        - ./:/code
