@@ -18,8 +18,6 @@ libxml2-dev \
 curl \
 zip 
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN apt-get clean 
 
 # ////////////////////////////
@@ -75,4 +73,3 @@ pdo_mysql
 # 	# wddx \
 # xml \
 # 	# xmlreader \ 
-RUN composer install
