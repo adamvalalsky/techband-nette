@@ -1,4 +1,4 @@
-# Techband study
+# Nette study
 
 ## How to run
 ``` 
