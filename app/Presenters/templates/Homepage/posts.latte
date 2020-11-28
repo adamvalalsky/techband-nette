@@ -1,0 +1,80 @@
+{block content}
+    <main role="main" class="container">
+        <div class="row pb-2 mb-3 border-bottom">
+            <h1 n:block="title" class="col-4 p-0">Články</h1>
+
+            <div class="col-8 text-right">
+                <p class="m-0">Zoradiť podľa:</p>
+                <a n:href="posts, $page, title" class="category {if $sort == "title"} active-sort {/if}">Názov</a>
+                <a n:href="posts, $page, created_at" class="category {if $sort == "created_at"} active-sort {/if}">Dátum</a>
+                <a n:href="posts, $page, reviews" class="category {if $sort == "reviews"} active-sort {/if}">Hodnotenie</a>
+            </div>
+        </div>
+
+        {foreach $posts as $post}
+            <div class="row blog-post">
+                <div class="blog-text">
+                    <h2 class="blog-post-title">{$post->title}</h2>
+                    <p class="blog-post-info">
+                        {$post->created_at|date:'F j, Y H:m:s'}
+                        {if $post->visible == 0}<small>(tento článok je zobraziteľný len pre prihlásených užívateľov)</small>{/if}
+                    </p>
+                    <p>{$post->perex}</p>
+                </div>
+
+                {if $user->loggedIn}
+                    <div class="review">
+                        <a href="#" onclick="like(this)" data-id="{$post->id}" class="like-button">
+                            Like (<span class="like-count">{$post->related("review")->where(["post_id" => $post->id, "value" => 1])->count()}</span>)
+                        </a>
+                        <a href="#" onclick="dislike(this)" data-id="{$post->id}">
+                            Dislike (<span class="dislike-count">{$post->related("review")->where(["post_id" => $post->id, "value" => -1])->count()}</span>)
+                        </a>
+                    </div>
+                {/if}
+            </div>
+        {/foreach}
+            <nav aria-label="Search pages" class="d-flex justify-content-center align-items-center">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item {if $page == 1} disabled {/if}">
+                        <a class="page-link" n:href="posts, $page - 1, $sort">Predchadzajúca</a>
+                    </li>
+                    {for $i = 1; $i <= $lastPage; $i++}
+                        <li class="page-item {if $page == $i} active {/if}" aria-current="page">
+                            <a class="page-link" n:href="posts, $i, $sort">{$i}</a>
+                        </li>
+                    {/for}
+
+                    <li class="page-item {if $page == $lastPage} disabled {/if}">
+                        <a class="page-link" href="#">Nasledujúca</a>
+                    </li>
+                </ul>
+            </nav>
+
+    </main>
+
+    <script>
+        function like(element) {
+            let id = element.dataset.id;
+            event.preventDefault();
+            fetch("http://localhost:80/post/"+id+"/review/like")
+                .then(response => response.json())
+                .then(data => updateReview(element, data));
+        }
+
+        function dislike(element) {
+            event.preventDefault();
+            let id = element.dataset.id;
+            fetch("http://localhost:80/post/"+id+"/review/dislike")
+                .then(response => response.json())
+                .then(data => updateReview(element, data));
+        }
+
+        function updateReview(element, review) {
+            element.parentElement.querySelector('.like-count').innerText = review.likes;
+            element.parentElement.querySelector('.dislike-count').innerText = review.dislikes;
+        }
+    </script>
+{/block}
+
+

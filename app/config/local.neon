@@ -1,0 +1,7 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=localhost;dbname=techband'
+	user: root
+	password: root

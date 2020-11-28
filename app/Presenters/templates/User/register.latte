@@ -1,0 +1,26 @@
+{block content}
+    <form class="form-user" n:name="registerForm">
+        <h3 n:block="title">Registrácia</h3>
+
+        <ul class="errors alert-danger" n:if="$form->hasErrors()">
+            <li n:foreach="$form->errors as $error">{$error}</li>
+        </ul>
+
+        <div class="form-group">
+            <label for="">Meno: </label>
+            <input class="form-control" n:name="name" placeholder="Meno" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="">Prihlasovacie meno</label>
+            <input class="form-control" n:name="login" placeholder="Prihlasovacie meno" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Heslo: </label>
+            <input class="form-control mb-3" n:name="password" placeholder="Heslo" required>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrovať</button>
+    </form>
+{/block}

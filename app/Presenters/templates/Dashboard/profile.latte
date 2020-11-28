@@ -1,0 +1,17 @@
+{block content}
+    <div class="container">
+        <h1 n:block="title">Profil</h1>
+
+        {if $flashes}
+            <div class="alert alert-success">
+                <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+            </div>
+        {/if}
+
+        <p>Meno: {$user->getIdentity()->name}</p>
+        <p>Login: {$user->getIdentity()->login}</p>
+
+        <a n:href="Dashboard:changepassword">Zmeniť heslo</a>
+    </div>
+
+{/block}

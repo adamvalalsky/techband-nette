@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{$basePath}/css/app.css" rel="stylesheet" type="text/css"/>
+	<title>{include title|stripHtml}</title>
+</head>
+
+<body>
+
+		<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+			<a class="my-0 mr-md-auto font-weight-normal text-dark" n:href="Homepage:posts">Techband study</a>
+			<navbar class="my-2 my-md-0 mr-md-3">
+				{if $user->loggedIn}
+					<a n:href="Dashboard:profile" class="p-2 text-dark">{$user->getIdentity()->name}</a>
+					<a n:href="User:out" class="p-2 text-dark">Odhlásiť</a>
+				{else}
+					<a n:href="User:register" class="p-2 text-dark">Registrovať</a>
+					<a n:href="User:signin" class="p-2 text-dark">Prihlásiť</a>
+				{/if}
+			</navbar>
+		</div>
+
+		{include content}
+
+	<footer class="footer">
+		<div class="container">
+			<span class="text-muted">Adam Valalský</span>
+		</div>
+	</footer>
+
+
+	{block scripts}
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	{/block}
+</body>
+</html>
