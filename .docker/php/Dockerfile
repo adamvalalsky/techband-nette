@@ -50,7 +50,7 @@ mysqli \
 	# pdo \
 	# pdo_dblib \
 	# pdo_firebird \
-pdo_mysql \
+pdo_mysql
 	# pdo_oci \
 	# pdo_odbc \
 	# pdo_pgsql \
